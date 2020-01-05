@@ -4,13 +4,19 @@ const uppercase = document.getElementById('uppercase');
 const symbols = document.getElementById('symbols');
 const number = document.getElementById('number');
 const range = document.getElementById('range');
-const range_number = document.getElementById('rangeNumber');
-const submit_boton = document.getElementById('submitButton');
+const rangeNumber = document.getElementById('rangeNumber');
+const submitButton = document.getElementById('submitButton');
 const password = document.getElementById('password');
+const copyButton = document.getElementById('copyButton');
 
-range.addEventListener('input', e => syncValue(range, range_number));
-range_number.addEventListener('input', e => syncValue(range_number, range));
-submit_boton.addEventListener('click', generatePassword);
+range.addEventListener('input', e => syncValue(range, rangeNumber));
+rangeNumber.addEventListener('input', e => syncValue(rangeNumber, range));
+submitButton.addEventListener('click', generatePassword);
+copyButton.addEventListener('click', () => {
+    password.select();
+    document.execCommand('copy');
+    copyButton.innerText = "Copied"
+});
 
 function generatePassword() {
     password.value = new PassGen(
@@ -19,4 +25,5 @@ function generatePassword() {
         symbols.checked,
         uppercase.checked
     ).getPassword();
+    copyButton.innerText = "Copy?"
 }
